@@ -1,0 +1,102 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var app = require("../app");
+var http = require("http");
+const PORT = require("../config").app.port;
+const mongoose = require("mongoose");
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+ 
+var port = normalizePort(PORT);
+// app.set('port', port);
+
+var server = http.createServer(app.callback());
+
+
+server.listen(port);
+server.on("error", onError);
+server.on("listening", onListening);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+  return false;
+}
+
+// 内存使用情况
+// let mem = process.memoryUsage();
+var mem = process.memoryUsage();
+console.log('Process: heapTotal '+format(mem.heapTotal) + ' heapUsed ' + format(mem.heapUsed) + ' 进程分配内存-rss ' + format(mem.rss));
+function format(bytes) {
+  return (bytes/1024/1024).toFixed(2)+'MB';
+}
+/*let intervalId = setInterval(function () {
+  var mem = process.memoryUsage();
+  console.log('Process: heapTotal '+format(mem.heapTotal) + ' heapUsed ' + format(mem.heapUsed) + ' 进程分配内存-rss ' + format(mem.rss));
+}, 30000)*/
+
+// 优雅退出(ctr + c)
+process.on("SIGINT", () => {
+  console.info("SIGINT signal received.");
+  // clearTimeout(intervalId);
+  // Stops the server from accepting new connections and finishes existing connections.
+  server.close(function(err) {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    }
+    mongoose.connection.close(function() {
+      console.log("Mongoose connection disconnected");
+      process.exit(0);
+    });
+  });
+});
+
+function onError(error) {
+  if (error.syscall !== "listen") {
+    throw error;
+  }
+  var bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
+  switch (error.code) {
+    case "EACCES":
+      console.error(bind + " requires elevated privileges");
+      process.exit(1);
+      break;
+    case "EADDRINUSE":
+      console.error(bind + " is already in use");
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
+  console.log(bind);
+}
+// 运行任务管理服务 内置服務
+// npx agendash --db=mongodb://newscnnRoot:1qazzaq1%401989@144.202.126.42:27017/newscnn --collection=agendaCollection --port=3001
