@@ -28,7 +28,6 @@ module.exports = async function trainnlp(manager, say, allUtterance) {
     manager.load('./model.nlp');
     return;
   }*/
-
   allUtterance.map(item => {
     console.log(item.utterance)
     manager.addDocument(item.lang, item.utterance, item.agent);
