@@ -5,7 +5,7 @@ module.exports = {
    */
   apps: [
     {
-      name: "cnnEnglish",
+      name: "cnnBot",
       script: "./bin/www",
       log_date_format: "YYYY-MM-DD HH:mm:ss",
 

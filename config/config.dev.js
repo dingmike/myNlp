@@ -13,6 +13,10 @@ module.exports = {
       charset: 'utf8mb4'
     }
   },
+  session: {
+    secrets: "bot-secret",
+    cookie: {maxAge: 60000 * 5} // session expiration time ms 5min
+  },
   app: {
     nibu: 'hehe',
     port: "8080",
