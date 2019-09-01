@@ -53,6 +53,7 @@ module.exports = async function trainnlp(manager, say, allUtterance) {
   manager.addDocument('en', 'your age', 'agent.age');
   manager.addDocument('en', 'how old is your platform', 'agent.age');
   manager.addDocument('en', 'how old are you', 'agent.age');
+  manager.addDocument('en', 'Who are you?', 'agent.who');
   manager.addDocument('en', "what's your age", 'agent.age');
   manager.addDocument('en', "I'd like to know your age", 'agent.age');
   manager.addDocument('en', 'tell me your age', 'agent.age');
@@ -415,13 +416,12 @@ module.exports = async function trainnlp(manager, say, allUtterance) {
     'agent.acquaintance',
     "I'm a virtual being, not a real person"
   );
-  manager.addAnswer('en', 'agent.acquaintance', "I'm a conversational app");
   manager.addAnswer('en', 'agent.age', "I'm very young");
-  manager.addAnswer('en', 'agent.age', 'I was created recently');
+  manager.addAnswer('en', 'agent.age', 'I was created recently, just a babay! haha');
   manager.addAnswer(
     'en',
     'agent.age',
-    "Age is just a number. You're only as old as you feel"
+    "Age is just a number. You're only as old as you feel, so young."
   );
   manager.addAnswer(
     'en',
@@ -763,12 +763,28 @@ module.exports = async function trainnlp(manager, say, allUtterance) {
   );
   manager.addAnswer('en', 'user.excited', "I'm glad things are going your way");
   manager.addAnswer('en', 'user.excited', "That's great. I'm happy for you");
-  manager.addAnswer('en', 'user.likeagent', 'Likewise!');
+  manager.addAnswer('en', 'user.likeagent', 'Like wise!');
+  manager.addAnswer('en', 'user.likeagent', 'Thank you!');
   manager.addAnswer('en', 'user.likeagent', "That's great to hear");
   manager.addAnswer(
     'en',
     'user.testing',
     'I like being tested. It helps keep me sharp'
+  );
+  manager.addAnswer(
+    'en',
+    'user.english',
+    'I like English, I am keep on learning English.'
+  );
+  manager.addAnswer(
+    'en',
+    'user.english',
+    'How about your English?'
+  );
+  manager.addAnswer(
+    'en',
+    'user.english',
+    'Can you talk with me in English?'
   );
   manager.addAnswer(
     'en',
@@ -796,6 +812,8 @@ module.exports = async function trainnlp(manager, say, allUtterance) {
     "I'm not sure I'll have the best answer, but I'll try"
   );
   manager.addAnswer('en', 'greeting.hello', 'Hey there!');
+  manager.addAnswer('en', 'greeting.acquaintance', 'I\'m the newscnn\'s robot!');
   manager.addAnswer('en', 'greeting.bye', 'Till next time, {{name}}!');
+  manager.addAnswer('en', 'greeting.needsadvice', 'You should study hard, so you can be more smart!');
   manager.save('./model.nlp', true);
 };
