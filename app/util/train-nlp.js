@@ -409,7 +409,7 @@ module.exports = async function trainnlp(manager, say, allUtterance) {
   manager.addAnswer(
     'en',
     'agent.acquaintance',
-    "Well, I'm not a person, I'm a virtual agent"
+    "Well, I'm not a person, I'm a baby robot from newscnn!"
   );
   manager.addAnswer(
     'en',
