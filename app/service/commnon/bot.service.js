@@ -53,10 +53,25 @@ class MyBot {
   * */
   async saveUtterance(params) {
     console.log(params)
-    mysqlModel.Nlp.forge({utterance: params.utterance, lang: params.lang, agent: params.agent}).save().then((res) => {
-      console.log('保存训练话语成功')
-      console.log(res)
-    });
+
+    let doc =  await mysqlModel.Nlp.select('utterance').where({'utterance': params.utterance.trim()});
+    console.log('是否存在此话语')
+    console.log(doc)
+    if(!doc) {
+        mysqlModel.Nlp.forge({utterance: params.utterance.trim(), lang: params.lang, agent: params.agent}).save().then((res) => {
+            console.log('保存训练话语成功')
+            console.log(res)
+        }).catch(err => {
+            console.log(err)
+        });
+
+    }else {
+      console.log('存在此话语')
+    }
+
+
+
+
   }
 
   async onTurn(turnContext) {
