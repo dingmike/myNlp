@@ -54,23 +54,24 @@ class MyBot {
   async saveUtterance(params) {
     console.log(params)
 
-    let doc =  await mysqlModel.Nlp.query({where: {utterance: params.utterance.trim()}}).fetch();
-    console.log('是否存在此话语')
-    console.log(doc)
-    if(!doc) {
-        mysqlModel.Nlp.forge({utterance: params.utterance.trim(), lang: params.lang, agent: params.agent}).save().then((res) => {
-            console.log('保存训练话语成功')
-            console.log(res)
-        }).catch(err => {
-            console.log(err)
-        });
+    if (params.agent !== 'none') {
+        let doc =  await mysqlModel.Nlp.query({where: {utterance: params.utterance.trim()}}).fetch();
+        console.log('是否存在此话语')
+        console.log(doc)
+        if(!doc) {
+            mysqlModel.Nlp.forge({utterance: params.utterance.trim(), lang: params.lang, agent: params.agent}).save().then((res) => {
+                console.log('保存训练话语成功')
+                console.log(res)
+            }).catch(err => {
+                console.log(err)
+            });
 
-    }else {
-      console.log('存在此话语')
+        }else {
+            console.log('存在此话语')
+        }
+    } else {
+      console.log('训练类型agent为none，不进行训练')
     }
-
-
-
 
   }
 
