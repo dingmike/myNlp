@@ -54,7 +54,7 @@ class MyBot {
   async saveUtterance(params) {
     console.log(params)
 
-    let doc =  await mysqlModel.Nlp.select('utterance').where({'utterance': params.utterance.trim()});
+    let doc =  await mysqlModel.Nlp.query({where: {utterance: params.utterance.trim()}}).fetch();
     console.log('是否存在此话语')
     console.log(doc)
     if(!doc) {
